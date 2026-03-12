@@ -3,24 +3,113 @@
 <head>
 <meta charset="UTF-8">
 <title>AI Translator</title>
-<link rel="stylesheet" href="style.css">
+
+<style>
+body{
+background:#0b0b0b;
+color:white;
+font-family:Arial;
+text-align:center;
+}
+
+textarea{
+width:80%;
+height:120px;
+background:#222;
+color:white;
+border:none;
+padding:10px;
+margin:10px;
+}
+
+select{
+padding:8px;
+margin:5px;
+}
+
+button{
+padding:10px 20px;
+margin:10px;
+cursor:pointer;
+}
+
+#result{
+background:#1a1a1a;
+padding:20px;
+margin-top:20px;
+width:80%;
+margin-left:auto;
+margin-right:auto;
+}
+</style>
 </head>
 
 <body>
 
 <h1>AI Translator</h1>
 
-<textarea id="input"></textarea>
+<textarea id="text" placeholder="Nhập văn bản..."></textarea>
 
-<br><br>
+<br>
 
-<button onclick="translate()">Translate</button>
+Từ:
+<select id="from">
+<option value="auto">Auto</option>
+<option value="vi">Vietnamese</option>
+<option value="en">English</option>
+<option value="zh">Chinese</option>
+<option value="ko">Korean</option>
+<option value="ja">Japanese</option>
+</select>
+
+Đến:
+<select id="to">
+<option value="en">English</option>
+<option value="vi">Vietnamese</option>
+<option value="zh">Chinese</option>
+<option value="ko">Korean</option>
+<option value="ja">Japanese</option>
+</select>
+
+<br>
+
+<button onclick="translateText()">Translate</button>
+<button onclick="speak()">🔊 Voice</button>
 
 <h3>Kết quả</h3>
 
-<div id="output"></div>
+<div id="result"></div>
 
-<script src="app.js"></script>
+<script>
+
+async function translateText(){
+
+let text=document.getElementById("text").value
+let from=document.getElementById("from").value
+let to=document.getElementById("to").value
+
+let url=`https://api.mymemory.translated.net/get?q=${text}&langpair=${from}|${to}`
+
+let res=await fetch(url)
+let data=await res.json()
+
+document.getElementById("result").innerText=data.responseData.translatedText
+
+}
+
+function speak(){
+
+let text=document.getElementById("result").innerText
+
+let speech=new SpeechSynthesisUtterance(text)
+
+speech.lang="en-US"
+
+speechSynthesis.speak(speech)
+
+}
+
+</script>
 
 </body>
 </html>
