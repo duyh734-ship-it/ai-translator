@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>AI Translator</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<h1>AI Translator</h1>
+
+<textarea id="input"></textarea>
+
+<br><br>
+
+<button onclick="translate()">Translate</button>
+
+<h3>Kết quả</h3>
+
+<div id="output"></div>
+
+<script src="app.js"></script>
+
+</body>
+</html>

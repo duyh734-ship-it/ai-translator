@@ -1,0 +1,13 @@
+async function translate(){
+
+let text=document.getElementById("input").value
+
+let url=`https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=en|vi`
+
+let res=await fetch(url)
+
+let data=await res.json()
+
+document.getElementById("output").innerText=data.responseData.translatedText
+
+}
